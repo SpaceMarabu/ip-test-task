@@ -9,6 +9,6 @@ data class ShopItemDbModel(
     val id: Int,
     val name: String,
     val time: Int,
-    val tags: String,
+    val tags: List<String>,
     val amount: Int
 )

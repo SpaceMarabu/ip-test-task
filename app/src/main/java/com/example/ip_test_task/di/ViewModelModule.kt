@@ -1,7 +1,7 @@
 package com.example.ip_test_task.di
 
 import androidx.lifecycle.ViewModel
-import com.example.ip_test_task.presentation.main.MainViewModel
+import com.example.ip_test_task.presentation.main.MainViewUDFModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -10,8 +10,8 @@ import dagger.multibindings.IntoMap
 interface ViewModelModule {
 
     @IntoMap
-    @ViewModelKey(MainViewModel::class)
+    @ViewModelKey(MainViewUDFModel::class)
     @Binds
-    fun bindMainViewModel(viewModel: MainViewModel): ViewModel
+    fun bindMainViewModel(viewModel: MainViewUDFModel): ViewModel
 
 }

@@ -29,4 +29,20 @@ object Converters {
             TypeToken<List<ShopItemDbModel>>() {}.type
         return gson.fromJson(items, type)
     }
+
+    @TypeConverter
+    fun fromTagsList(tags: List<String>): String {
+        val gson = Gson()
+        val type: Type = object :
+            TypeToken<List<String>>() {}.type
+        return gson.toJson(tags, type)
+    }
+
+    @TypeConverter
+    fun toTagsList(tags: String): List<String> {
+        val gson = Gson()
+        val type: Type = object :
+            TypeToken<List<String>>() {}.type
+        return gson.fromJson(tags, type)
+    }
 }

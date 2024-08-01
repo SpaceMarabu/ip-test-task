@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ip_test_task.di.getApplicationComponent
-import com.example.ip_test_task.presentation.main.MainViewModel
+import com.example.ip_test_task.presentation.main.MainViewUDFModel
 import com.example.ip_test_task.presentation.theme.IptesttaskTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val component = getApplicationComponent()
 
-            val viewModel: MainViewModel = viewModel(factory = component.getViewModelFactory())
+            val viewModel: MainViewUDFModel = viewModel(factory = component.getViewModelFactory())
 
             IptesttaskTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->

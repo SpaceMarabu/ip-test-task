@@ -5,7 +5,7 @@ import com.example.ip_test_task.domain.repository.ItemsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetAllItemsUseCase  @Inject constructor(
+class GetItemsUseCase  @Inject constructor(
     private val repository: ItemsRepository
 ) {
 

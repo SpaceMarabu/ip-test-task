@@ -9,8 +9,7 @@ import dagger.Component
     modules = [
         DataModule::class,
         ViewModelModule::class,
-//        AppModule::class,
-//        PresentationModule::class
+        PresentationModule::class
     ]
 )
 interface ApplicationComponent {

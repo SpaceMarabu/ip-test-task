@@ -18,14 +18,6 @@ class ItemsRepositoryImpl @Inject constructor(
     private val mapper: LocalMapper
 ) : ItemsRepository {
 
-    init {
-        CoroutineScope(Dispatchers.IO).launch {
-            getItems().collect {
-                it
-            }
-        }
-    }
-
     override fun getItems() =
         storeItemsDao.getItems().map { itemsList ->
             val notNullableItemsList = itemsList ?: listOf()
