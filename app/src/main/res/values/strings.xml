@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ip-test-task</string>
+    <string name="items_list">Список товаров</string>
+    <string name="done">Принять</string>
+    <string name="cancel">Отмена</string>
+    <string name="items_amount">Количество товара</string>
+    <string name="no">Нет</string>
+    <string name="yes">Да</string>
+    <string name="removing_item">Удаление товара</string>
+    <string name="confirm_deleting_question">Вы действительно хотите удалить выбранный товар?</string>
 </resources>

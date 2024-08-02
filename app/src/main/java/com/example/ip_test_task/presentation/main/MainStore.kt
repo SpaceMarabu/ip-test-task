@@ -35,14 +35,17 @@ interface MainStore : Store<Intent, State, Label> {
         data object RemoveDone : Intent
 
         data object RemoveCancel : Intent
+
+        data object ClearSearch : Intent
     }
 
     data class State(
         val contentState: ContentState,
         val searchQuery: String = "",
-        val isEditingMenuOpen: Boolean = false,
-        val isRemovingMenuOpen: Boolean = false,
-        val currentItem: ShopItem? = null
+        val isEditingMenuExpanded: Boolean = false,
+        val isRemovingMenuExpanded: Boolean = false,
+        val currentItem: ShopItem? = null,
+        val items: List<ShopItem> = listOf()
     ) {
 
         sealed interface ContentState {
@@ -53,7 +56,10 @@ interface MainStore : Store<Intent, State, Label> {
 
             data object Initial : ContentState
 
-            data class Content(val items: List<ShopItem>) : ContentState
+            data class Content(
+                val items: List<ShopItem>,
+                val itemsFiltered: List<ShopItem>
+            ) : ContentState
         }
     }
 
@@ -109,6 +115,8 @@ class MainStoreFactory @Inject constructor(
         data object RemoveDone : Msg
 
         data object RemoveCancel : Msg
+
+        data object ClearSearch : Msg
     }
 
     private inner class BootstrapperImpl : CoroutineBootstrapper<Action>() {
@@ -118,7 +126,7 @@ class MainStoreFactory @Inject constructor(
                     dispatch(Action.Loading)
                     getItemsUseCase.getItemsFlow()
                         .collect { itemList ->
-                            dispatch(Action.DataLoaded(itemList))
+                            dispatch(Action.DataLoaded(items = itemList))
                         }
                 }
             } catch (e: Exception) {
@@ -178,6 +186,9 @@ class MainStoreFactory @Inject constructor(
                     dispatch(Msg.Search(intent.query))
                 }
 
+                Intent.ClearSearch -> {
+                    dispatch(Msg.ClearSearch)
+                }
             }
         }
 
@@ -204,28 +215,29 @@ class MainStoreFactory @Inject constructor(
                 is Msg.DataLoaded -> {
                     this.copy(
                         contentState = State.ContentState.Content(
-                            items = msg.items.filter { it.name.contains(this.searchQuery) }
+                            items = msg.items,
+                            itemsFiltered = msg.items.filter { it.name.contains(this.searchQuery) }
                         )
                     )
                 }
 
                 Msg.EditCancel -> {
                     this.copy(
-                        isEditingMenuOpen = false,
+                        isEditingMenuExpanded = false,
                         currentItem = null
                     )
                 }
 
                 is Msg.EditClick -> {
                     this.copy(
-                        isEditingMenuOpen = true,
+                        isEditingMenuExpanded = true,
                         currentItem = msg.item
                     )
                 }
 
                 Msg.EditDone -> {
                     this.copy(
-                        isEditingMenuOpen = false,
+                        isEditingMenuExpanded = false,
                         currentItem = null
                     )
                 }
@@ -264,43 +276,52 @@ class MainStoreFactory @Inject constructor(
 
                 Msg.RemoveCancel -> {
                     this.copy(
-                        isRemovingMenuOpen = false,
+                        isRemovingMenuExpanded = false,
                         currentItem = null
                     )
                 }
 
                 is Msg.RemoveClick -> {
                     this.copy(
-                        isRemovingMenuOpen = true,
+                        isRemovingMenuExpanded = true,
                         currentItem = msg.item
                     )
                 }
 
                 Msg.RemoveDone -> {
                     this.copy(
-                        isRemovingMenuOpen = false,
+                        isRemovingMenuExpanded = false,
                         currentItem = null
                     )
                 }
 
                 is Msg.Search -> {
-                    val currentContentState = this.contentState
-                    if (currentContentState is State.ContentState.Content) {
-                        this.copy(
-                            searchQuery = msg.query,
-                            contentState = currentContentState.copy(
-                                items = currentContentState.items.filter {
-                                    it.name.contains(msg.query)
-                                }
-                            )
-                        )
-                    } else {
-                        this.copy(
-                            searchQuery = msg.query
-                        )
-                    }
+                    modifySearchQuery(this, msg.query)
 
                 }
+
+                Msg.ClearSearch -> {
+                    modifySearchQuery(this, "")
+                }
             }
+
+        private fun modifySearchQuery(state: State, searchQuery: String): State {
+            val currentContentState = state.contentState
+            return if (currentContentState is State.ContentState.Content) {
+                state.copy(
+                    searchQuery = searchQuery,
+                    contentState = currentContentState.copy(
+                        itemsFiltered = currentContentState.items.filter {
+                            it.name.lowercase().contains(searchQuery.lowercase())
+                        }
+                    )
+                )
+            } else {
+                state.copy(
+                    searchQuery = searchQuery
+                )
+            }
+        }
     }
 }
+

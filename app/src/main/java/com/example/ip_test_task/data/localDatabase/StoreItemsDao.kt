@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface StoreItemsDao {
 
-    @Query("SELECT * FROM items")
+    @Query("SELECT * FROM item")
     fun getItems(): Flow<List<ShopItemDbModel>?>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)

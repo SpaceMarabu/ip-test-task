@@ -73,9 +73,6 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
-//    {
-//        exclude(group = "com.intellij", module = "annotations")
-//    }
     implementation(libs.gson)
 
     implementation(libs.mvikotlin.core)
@@ -84,5 +81,7 @@ dependencies {
 
     implementation(libs.dagger.core)
     ksp(libs.dagger.compiler)
+
+    implementation(libs.icons)
 
 }
