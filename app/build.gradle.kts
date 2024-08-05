@@ -3,11 +3,16 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.room.gradle)
 }
 
 android {
     namespace = "com.example.ip_test_task"
     compileSdk = 34
+
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
 
     defaultConfig {
         applicationId = "com.example.ip_test_task"
@@ -20,6 +25,11 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+//        javaCompileOptions {
+//            ksp {
+//                arg("room.schemaLocation", "$projectDir/schemas")
+//            }
+//        }
     }
 
     buildTypes {
@@ -50,6 +60,7 @@ android {
         }
     }
 }
+
 
 dependencies {
 
