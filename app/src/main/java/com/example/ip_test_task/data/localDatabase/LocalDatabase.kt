@@ -1,12 +1,10 @@
 package com.example.ip_test_task.data.localDatabase
 
 import android.app.Application
-import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.ip_test_task.data.localDatabase.model.ShopItemDbModel
 
 @Database(entities = [ShopItemDbModel::class], version = 2, exportSchema = false)
@@ -34,6 +32,7 @@ abstract class LocalDatabase : RoomDatabase() {
                     LocalDatabase::class.java,
                     DB_NAME
                 )
+                    .createFromAsset("init_db.db")
                     .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = db

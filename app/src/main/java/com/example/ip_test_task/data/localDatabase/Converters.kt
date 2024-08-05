@@ -9,28 +9,6 @@ import java.lang.reflect.Type
 object Converters {
 
     @TypeConverter
-    fun fromItemsList(items: List<ShopItemDbModel>?): String? {
-        if (items == null) {
-            return null
-        }
-        val gson = Gson()
-        val type: Type = object :
-            TypeToken<List<ShopItemDbModel>>() {}.type
-        return gson.toJson(items, type)
-    }
-
-    @TypeConverter
-    fun toItemsList(items: String?): List<ShopItemDbModel?>? {
-        if (items == null) {
-            return null
-        }
-        val gson = Gson()
-        val type: Type = object :
-            TypeToken<List<ShopItemDbModel>>() {}.type
-        return gson.fromJson(items, type)
-    }
-
-    @TypeConverter
     fun fromTagsList(tags: List<String>): String {
         val gson = Gson()
         val type: Type = object :

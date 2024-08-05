@@ -1,12 +1,7 @@
 package com.example.ip_test_task.data.mappers
 
-import android.icu.util.Calendar
-import android.icu.util.GregorianCalendar
 import com.example.ip_test_task.data.localDatabase.model.ShopItemDbModel
 import com.example.ip_test_task.domain.entity.ShopItem
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import javax.inject.Inject
 
 class LocalMapper @Inject constructor() {
