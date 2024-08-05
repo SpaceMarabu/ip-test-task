@@ -43,6 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -324,9 +325,25 @@ private fun SearchField(
     )
 }
 
+@Preview
 @Composable
 private fun Error() {
-
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = stringResource(R.string.something_wrong),
+            style = MaterialTheme.typography.titleLarge
+        )
+        Text(
+            text = stringResource(R.string.try_reload),
+            style = MaterialTheme.typography.titleLarge
+        )
+    }
 }
 
 @Composable
@@ -402,8 +419,14 @@ private fun CardShopItem(
             horizontalArrangement = Arrangement.Absolute.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            TitleWithData(title = "На складе", data = item.amount.toString())
-            TitleWithData(title = "Дата добавления", data = item.time.toStringDate())
+            TitleWithData(
+                title = stringResource(R.string.on_warehouse),
+                data = item.amount.toString()
+            )
+            TitleWithData(
+                title = stringResource(R.string.adding_date),
+                data = item.time.toStringDate()
+            )
         }
 
     }

@@ -8,4 +8,8 @@
     <string name="yes">Да</string>
     <string name="removing_item">Удаление товара</string>
     <string name="confirm_deleting_question">Вы действительно хотите удалить выбранный товар?</string>
+    <string name="something_wrong">Что-то пошло не так.</string>
+    <string name="try_reload">Попробуйте перезагрузить приложение.</string>
+    <string name="on_warehouse">На складе</string>
+    <string name="adding_date">Дата добавления</string>
 </resources>
