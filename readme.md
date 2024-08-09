@@ -1,4 +1,4 @@
-### использованный стек
+### Использованный стек
 Kotlin  
 MVI+Jetpack Compose
 Для поддержки MVI использовалась библиотека com.arkivanov.mvikotlin  
