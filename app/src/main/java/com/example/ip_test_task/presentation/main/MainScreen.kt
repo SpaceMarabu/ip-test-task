@@ -321,7 +321,8 @@ private fun SearchField(
             focusedBorderColor = MaterialTheme.colorScheme.outline,
             unfocusedBorderColor = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.5f),
             cursorColor = MaterialTheme.colorScheme.outline
-        )
+        ),
+        singleLine = true
     )
 }
 
